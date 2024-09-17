@@ -62,18 +62,29 @@ outliers = (z_scores > outlier_amplitud)
 # Función para comparar los gráficos de las columnas importantes antes y después de eliminar los outliers
 def plot_outliers_comparison(original_data, cleaned_data, columns):
     for column in columns:
-        plt.figure(figsize=(14, 6))
+        plt.figure(figsize=(14, 8))
 
-        # Gráfico de la variable original con outliers
-        plt.subplot(1, 2, 1)
+        # Gráfico de la variable original con outliers - Histograma
+        plt.subplot(2, 2, 1)
         sns.histplot(original_data[column], kde=True)
-        plt.title(f'{column}: Con Outliers')
+        plt.title(f'{column}: Con Outliers (Histograma)')
 
-        # Gráfico de la variable sin outliers
-        plt.subplot(1, 2, 2)
+        # Gráfico de la variable sin outliers - Histograma
+        plt.subplot(2, 2, 2)
         sns.histplot(cleaned_data[column], kde=True)
-        plt.title(f'{column}: Sin Outliers')
+        plt.title(f'{column}: Sin Outliers (Histograma)')
 
+        # Gráfico de la variable original con outliers - Boxplot
+        plt.subplot(2, 2, 3)
+        sns.boxplot(x=original_data[column])
+        plt.title(f'{column}: Con Outliers (Boxplot)')
+
+        # Gráfico de la variable sin outliers - Boxplot
+        plt.subplot(2, 2, 4)
+        sns.boxplot(x=cleaned_data[column])
+        plt.title(f'{column}: Sin Outliers (Boxplot)')
+
+        plt.tight_layout()
         plt.show()
 
 # Identificar y eliminar los outliers usando Z-score
